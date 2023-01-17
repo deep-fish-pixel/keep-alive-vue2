@@ -1,7 +1,7 @@
 import wrapRouter from './wrapRouter';
 
-const KeepAliveRouterView = {
-  name: 'KeepAliveRouterView',
+const KeepAliveVue2 = {
+  name: 'KeepAliveVue2',
   props: {
     cached: Boolean,
     include: RegExp,
@@ -141,6 +141,6 @@ const KeepAliveRouterView = {
 
 export default {
   install(Vue) {
-    Vue.component(KeepAliveRouterView.name, KeepAliveRouterView);
+    Vue.component(KeepAliveVue2.name, KeepAliveVue2);
   }
 };

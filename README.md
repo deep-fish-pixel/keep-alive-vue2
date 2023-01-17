@@ -23,9 +23,9 @@ It uses the cache when you operate $router.back and $router.go to return the pag
 #### First: import and register component
 
 ```
-import KeepAliveRouterView from 'keep-alive-vue2';
+import KeepAliveVue2 from 'keep-alive-vue2';
 
-Vue.use(KeepAliveRouterView);
+Vue.use(KeepAliveVue2);
 ```
 
 #### Second: use keep-alive-vue2 component replace keep-alive and router-view components

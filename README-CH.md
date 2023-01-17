@@ -20,9 +20,9 @@ $router.push默认不使用缓存。
 #### 第一步 引用并注册组件
 
 ```
-import KeepAliveRouterView from 'keep-alive-vue2';
+import KeepAliveVue2 from 'keep-alive-vue2';
 
-Vue.use(KeepAliveRouterView);
+Vue.use(KeepAliveVue2);
 ```
 
 #### 第二步 使用keep-alive-vue2组件代替keep-alive和router-view
