@@ -15,8 +15,10 @@ const wrapRouter = {
     router.push = function(...args) {
       const location = args[0];
 
-      if (location && typeof location.cached === 'boolean') {
+      if (location && (typeof location.cached === 'boolean')) {
         wrapRouter.setKeepAlive(location.cached);
+      } else if (location && (typeof location.keepAlive === 'boolean')) {
+        wrapRouter.setKeepAlive(location.keepAlive);
       } else {
         wrapRouter.setKeepAlive(false);
       }
@@ -25,6 +27,8 @@ const wrapRouter = {
     router.back = function(options) {
       if (options && typeof options.cached === 'boolean') {
         wrapRouter.setKeepAlive(options.cached);
+      } else if (options && (typeof options.keepAlive === 'boolean')) {
+        wrapRouter.setKeepAlive(options.keepAlive);
       }
       return go.apply(this, [-1]);
     };
@@ -34,6 +38,8 @@ const wrapRouter = {
       }
       if (options && typeof options.cached === 'boolean') {
         wrapRouter.setKeepAlive(options.cached);
+      } else if (options && (typeof options.keepAlive === 'boolean')) {
+        wrapRouter.setKeepAlive(options.keepAlive);
       }
       return go.apply(this, [num]);
     };

@@ -18,24 +18,29 @@ const KeepAliveVue2 = {
     };
   },
   methods: {
-    before(to, from, next) {
+    before(route, prev, next) {
       if (this.hasDestroyed) {
         return next();
       }
       this.setKeepAliveRef();
-      this.deleteCacheByKey();
-      if (this.keepAliveRef && (!wrapRouter.getKeepAlive() || (!to.meta || to.meta && !to.meta.keepAlive))) {
-        this.deleteCacheByName(to.name, to.matched && to.matched[0] && (to.matched[0].instances && to.matched[0].instances.default || to.matched[0].instances));
+      this.setMermoryCache();
+      if (this.keepAliveRef && !wrapRouter.getKeepAlive()) {
+        this.deleteCache(route);
       }
       next();
     },
-    after() {
+    after(route) {
       if (this.hasDestroyed) {
         return true;
       }
       // 微前端中需要延迟较多时间
       setTimeout(() => {
-        if (!this.cached && !wrapRouter.getKeepAlive()) {
+        const isInit = !this.keepAliveRef;
+        this.setKeepAliveRef();
+        if (this.keepAliveRef && !this.cached) {
+          this.deleteCache(route);
+        }
+        if (!this.cached && (isInit || !wrapRouter.getKeepAlive())) {
           this.restoreCached();
         }
         wrapRouter.setKeepAlive(true);
@@ -45,6 +50,10 @@ const KeepAliveVue2 = {
       const cachePage = this.$refs.cachedPage;
       if (cachePage) {
         this.keepAliveRef = cachePage.$options.parent;
+      }
+    },
+    setMermoryCache() {
+      if (this.keepAliveRef && this.keepAliveRef.cache) {
         this.cache = {...(this.keepAliveRef.cache || {})};
       }
     },
@@ -72,6 +81,10 @@ const KeepAliveVue2 = {
           }
         });
       }
+    },
+    deleteCache(route){
+      this.deleteCacheByName(route.name, route.matched && route.matched[0] && (route.matched[0].instances && route.matched[0].instances.default || route.matched[0].instances));
+      this.deleteCacheByKey();
     },
     deleteCacheByName(name, instance){
       const cache = this.cache;
