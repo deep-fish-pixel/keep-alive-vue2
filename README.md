@@ -1,6 +1,6 @@
 # keep-alive-vue2  [中文](./README-CH.md)
 Extend vue2 keep-alive and router-view, add the function of automatically judging whether to use the cache.
-Support for vue3 [Click here](https://github.com/deep-fish-pixel/keep-alive-vue3)
+Support for vue3 [Click here](https://www.npmjs.com/package/keep-alive-vue3)
 
 ### The background of the problem
 
