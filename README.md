@@ -109,7 +109,7 @@ this.$router.go(-1, {
 });
 ```
 
-### keep-alive-vue2 attribute cache and $router interface parameter cache configuration cache effective or not.
+### keep-alive-vue2 attribute cache and $router interface parameter cache values determine whether the page uses cache.
 | keep-alive-vue2 cache | $router cache   | Whether to use cache |
 |------------------|-----------------|----------------------|
 | true             | true            | Yes                  |
