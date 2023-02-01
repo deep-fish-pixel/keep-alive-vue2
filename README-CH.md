@@ -38,7 +38,7 @@ cached属性，用来设置使用页面缓存。
 ```
 ##### Example2
 ```
-<-- 使用缓存，用于带标签页管理器的项目 -->
+<-- 默认使用缓存，用于带标签页管理器的项目 -->
 <keep-alive-vue2
     :cache="!$route.meta || !$route.meta.noCache"
     :defaultCache="true" />
@@ -48,14 +48,14 @@ cached属性，用来设置使用页面缓存。
 
 ### keep-alive-vue2属性说明
 
-| 属性           | 说明                                     | 类型   | 可选值 | 默认值   |
-|--------------|----------------------------------------|------| --- |-------|
-| cache        | 是否缓存页面                                 | Boolean | true/false | false |
-| defaultCache | $router.go、$router.replace 参数cache默认缓存 | Boolean | true/false | false |
-| name         | router-view名称                          | String | - | -     |
-| include      | 只有名称匹配的组件会被缓存                          | RegExp | - | -     |
-| exclude      | 任何名称匹配的组件都不会被缓存                        | RegExp | - | -     |
-| max          | 最多可以缓存多少组件实例                           | Number | - | -     |
+| 属性           | 说明                                                            | 类型   | 可选值 | 默认值   |
+|--------------|---------------------------------------------------------------|------| --- |-------|
+| cache        | 是否缓存页面                                                        | Boolean | true/false | false |
+| defaultCache | 配置$router.push、$router.replace、$router.go(值大于0) cache参数使用的默认值 | Boolean | true/false | false |
+| name         | router-view名称                                                 | String | - | -     |
+| include      | 只有名称匹配的组件会被缓存                                                 | RegExp | - | -     |
+| exclude      | 任何名称匹配的组件都不会被缓存                                               | RegExp | - | -     |
+| max          | 最多可以缓存多少组件实例                                                  | Number | - | -     |
 
 ### vue-router接口扩展
 

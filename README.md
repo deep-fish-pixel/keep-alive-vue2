@@ -56,7 +56,7 @@ The cache attribute is used to cache the use of page caching.
 | property | description                                               | type | option | default |
 | --- |-----------------------------------------------------------| --- | --- |---------|
 | cache | whether to cache page                                     | Boolean  | true/false | false   |
-| defaultCache | $router.go、$router.replace Parameter cache default cached | Boolean | true/false | false |
+| defaultCache | $router.push、$router.replace and $router.go(value is greater than 0) parameter cache will use the value  | Boolean | true/false | false |
 | name | router-view name                                          | String  | - | -       |
 | include | only components with matching names will be cached        | RegExp  | - | -       |
 | exclude | any component whose name matches will not be cached       | RegExp  | - | -       |
