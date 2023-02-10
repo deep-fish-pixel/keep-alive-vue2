@@ -16,7 +16,7 @@ const wrapRouter = {
     objectClass.__keepAlive = useKeepAlive;
   },
   wrap(router) {
-    const { push, go } = router;
+    const { push, go, replace } = router;
 
     function checkSetCache(location) {
       return location && (typeof location.cache === 'boolean' || typeof location.keepAlive === 'boolean');
