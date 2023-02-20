@@ -54,10 +54,11 @@ const KeepAliveVue2 = {
       if (this.keepAliveRef && this.keepAliveRef.cache) {
         const newCache = this.keepAliveRef.cache;
         const oldCache = this.oldCache;
+        const pathCacheJson = JSON.stringify(this.pathCache);
         Object.keys(newCache).some(key => {
           if(!oldCache[key]){
             const path = this.getRoutePath();
-            if (path && !this.pathCache[path]) {
+            if (path && !this.pathCache[path] && !pathCacheJson.match(RegExp(`:"${key}"`))) {
               this.pathCache[path] = key;
               return true;
             }
