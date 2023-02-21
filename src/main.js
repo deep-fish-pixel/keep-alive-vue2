@@ -27,8 +27,6 @@ const KeepAliveVue2 = {
         return next();
       }
       this.setKeepAliveRef();
-      if (this.keepAliveRef && !wrapRouter.getKeepAlive()) {
-      }
       next();
     },
     after(route) {
@@ -88,17 +86,14 @@ const KeepAliveVue2 = {
         this.setKeepAliveRef();
         const path = this.getRoutePath();
         const key = this.pathCache[path];
-        const newCache = this.keepAliveRef.cache;
         if (path && key) {
           this.setkeepAliveInValidate(key, path);
         }
-
       }
     },
     setkeepAliveInValidate(key, path){
       const cachePage = this.$refs.cachedPage;
       const newCache = this.keepAliveRef.cache;
-      const parentCache = cachePage.$options.parent.cache;
 
       if (newCache[key]) {
         const vnode = newCache[key].componentInstance.$vnode;
@@ -109,8 +104,10 @@ const KeepAliveVue2 = {
 
       if (cachePage) {
         const keys = cachePage.$options.parent.keys;
-        cachePage.$options.parent.keys = keys.filter(item => item !== key);
-        delete cachePage.$options.parent.cache[key];
+        if (keys) {
+          cachePage.$options.parent.keys = keys.filter(item => item !== key);
+          delete cachePage.$options.parent.cache[key];
+        }
       }
       delete this.oldCache[key];
     }
@@ -133,26 +130,41 @@ const KeepAliveVue2 = {
       this.afterSyncReset();
     }
 
-    return [
-      createElement(
-        'keep-alive',
-        {
-          props: {
-            include: this.include,
-            exclude: this.exclude,
-            max: this.max
+    return createElement(
+      'div',
+      {
+        attrs: {
+          class: 'keep-alive-cache'
+        }
+      },
+      [
+        createElement(
+          'keep-alive',
+          {
+            props: {
+              include: this.include,
+              exclude: this.exclude,
+              max: this.max
+            },
           },
-        },
-        [createElement('router-view', {
+          [this.cache ? createElement('router-view', {
+            ref: "cachedPage",
+            props: {
+              name: this.name,
+              key: this.$route.fullPath
+            }
+          }) : this._e()],
+          1
+        ),
+        this.cache ? this._e() : createElement('router-view', {
           ref: "cachedPage",
           props: {
-            name: this.name,
-            key: this.$route.fullPath
+            name: this.name
           }
-        })],
-        1
-      )
-    ];
+        })
+      ],
+      1
+    )
   }
 };
 
