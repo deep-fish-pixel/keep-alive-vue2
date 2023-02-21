@@ -70,14 +70,14 @@ const KeepAliveVue2 = {
     },
     setKeepAliveRef() {
       const cachePage = this.$refs.cachedPage;
-      if (cachePage) {
+      if (cachePage && cachePage.$options.parent && cachePage.$options.parent.cacheVNode) {
         this.keepAliveRef = cachePage.$options.parent;
       }
     },
     setMermoryCache() {
       this.setKeepAliveRef();
       if (this.keepAliveRef && this.$refs.cachedPage) {
-        this.oldCache = {...(this.$refs.cachedPage.$options.parent.cache || {})};
+        this.oldCache = {...(this.keepAliveRef.cache || {})};
       }
     },
     restoreCached() {
@@ -103,10 +103,10 @@ const KeepAliveVue2 = {
       }
 
       if (cachePage) {
-        const keys = cachePage.$options.parent.keys;
-        if (keys) {
-          cachePage.$options.parent.keys = keys.filter(item => item !== key);
-          delete cachePage.$options.parent.cache[key];
+        const keys = this.keepAliveRef.keys;
+        if(keys){
+          this.keepAliveRef.keys = keys.filter(item => item !== key);
+          delete this.keepAliveRef.cache[key];
         }
       }
       delete this.oldCache[key];
